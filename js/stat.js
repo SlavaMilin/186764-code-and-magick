@@ -20,13 +20,17 @@ window.renderStatistics = function (ctx, names, times) {
   var initialX = 150;
   var initialY = 250;
   var step = histogramWidth + indent;
+  // painting rectangle
   times.forEach(function (value, index) {
     if (names[index] === 'Вы') {
       ctx.fillStyle = 'rgb(255, 0, 0)';
     } else {
-      ctx.fillStyle = 'rgb(0, 0, 255)';
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random(0.1, 0.9).toFixed(2) + ')';
     }
     ctx.fillRect(initialX + step * index, initialY, histogramWidth, hisigramTall * value);
+  });
+  // writing names and times
+  times.forEach(function (value, index) {
     ctx.fillStyle = '#000';
     ctx.fillText(parseInt(value, 10), initialX + step * index, initialY + hisigramTall * value - 10);
     ctx.fillText(names[index], initialX + step * index, initialY + 20);

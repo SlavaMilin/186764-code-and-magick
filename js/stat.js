@@ -1,16 +1,47 @@
 'use strict';
+
 window.renderStatistics = function (ctx, names, times) {
-  // shadow
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-  ctx.fillRect(110, 20, 420, 270);
-  // rectangle
-  ctx.fillStyle = 'white';
-  ctx.fillRect(100, 10, 420, 270);
-  // text
-  ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', 120, 40);
-  ctx.fillText('Список результатов:', 120, 60);
+  var shadow = {
+    color: 'rgba(0, 0, 0, 0.7)',
+    x: 110,
+    y: 20,
+    width: 420,
+    height: 270
+  };
+  var box = {
+    color: 'white',
+    x: 100,
+    y: 10,
+    width: 420,
+    height: 270
+  };
+  var firstLetter = {
+    text: 'Ура вы победили!',
+    x: 120,
+    y: 40,
+    color: '#000',
+    font: '16px PT Mono'
+  };
+  var secondLetter = {
+    text: 'Список результатов!',
+    x: 120,
+    y: 60,
+    color: '#000',
+    font: '16px PT Mono'
+  };
+  var drawRect = function (context, rectangle) {
+    context.fillStyle = rectangle.color;
+    context.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+  };
+  var drawText = function (context, letter) {
+    context.fillStyle = letter.color;
+    context.font = letter.font;
+    context.fillText(letter.text, letter.x, letter.y);
+  };
+  drawRect(ctx, shadow);
+  drawRect(ctx, box);
+  drawText(ctx, firstLetter);
+  drawText(ctx, secondLetter);
   // histogram
   var maxTime = Math.max.apply(null, times);
   var histogramHeight = 150;

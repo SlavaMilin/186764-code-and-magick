@@ -28,44 +28,67 @@ var secondLetter = {
   color: '#000',
   font: '16px PT Mono'
 };
-var drawRect = function (context, rectangle) {
-  context.fillStyle = rectangle.color;
-  context.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+var drawRect = function (context, color, x, y, width, height) {
+  context.fillStyle = color;
+  context.fillRect(x, y, width, height);
 };
-var drawText = function (context, letter) {
-  context.fillStyle = letter.color;
-  context.font = letter.font;
-  context.fillText(letter.text, letter.x, letter.y);
+var drawText = function (context, text, x, y, color, font) {
+  context.fillStyle = color;
+  context.font = font;
+  context.fillText(text, x, y);
+};
+var drawColumn = function (context, name, time) {
+  var positionX = 150;
+  var positionY = 250;
+  var columnWidth = 40;
+  var columnHeight = -150;
+  var indent = 50;
+  var step = columnWidth + indent;
+  var maxTime = Math.max.apply(null, time);
+  for (var i = 0; i < name.length; i++) {
+    var randomColor;
+    var tallRating = time[i] / maxTime;
+    if (name[i] === 'Вы') {
+      randomColor = 'rgb(255, 0, 0)';
+    } else {
+      randomColor = 'rgba(0, 0, 255, ' + Math.random(0.11, 0.89).toFixed(2) + ')';
+    }
+    var column = {
+      color: randomColor,
+      x: positionX + step * i,
+      y: positionY,
+      width: columnWidth,
+      height: columnHeight * tallRating
+    };
+    var columnScore = {
+      text: parseInt(time[i], 10),
+      x: column.x,
+      y: column.y + column.height - 10,
+      color: '#000',
+      font: '16px PT Mono'
+    };
+    var columnName = {
+      text: name[i],
+      x: column.x,
+      y: column.y + 20,
+      color: columnScore.color,
+      font: columnScore.font
+    };
+    drawRect(context, column.color, column.x, column.y, column.width, column.height);
+    drawText(context, columnScore.text, columnScore.x, columnScore.y, columnScore.color, columnScore.font);
+    drawText(context, columnName.text, columnName.x, columnName.y, columnName.color, columnName.font);
+  }
 };
 window.renderStatistics = function (ctx, names, times) {
   // histogram
-  var maxTime = Math.max.apply(null, times);
-  var histogramHeight = 150;
-  var histogramWidth = 40;
-  var histogramTall = -histogramHeight / maxTime;
-  var indent = 50;
-  var initialX = 150;
-  var initialY = 250;
-  var step = histogramWidth + indent;
-  // painting rectangle
-  var drawHistogram = function (value, index) {
-    if (names[index] === 'Вы') {
-      ctx.fillStyle = 'rgb(255, 0, 0)';
-    } else {
-      ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random(0.1, 0.9).toFixed(2) + ')';
-    }
-    ctx.fillRect(initialX + step * index, initialY, histogramWidth, histogramTall * value);
-  };
-  // writing names and times
-  var drawHistogramText = function (value, index) {
-    ctx.fillStyle = '#000';
-    ctx.fillText(parseInt(value, 10), initialX + step * index, initialY + histogramTall * value - 10);
-    ctx.fillText(names[index], initialX + step * index, initialY + 20);
-  };
-  drawRect(ctx, shadow);
-  drawRect(ctx, box);
-  drawText(ctx, firstLetter);
-  drawText(ctx, secondLetter);
-  times.forEach(drawHistogram);
-  times.forEach(drawHistogramText);
+  // drawing shadow
+  drawRect(ctx, shadow.color, shadow.x, shadow.y, shadow.width, shadow.height);
+  // drawing cloud
+  drawRect(ctx, box.color, box.x, box.y, box.width, box.height);
+  // drawing first letter
+  drawText(ctx, firstLetter.text, firstLetter.x, firstLetter.y, firstLetter.color, firstLetter.font);
+  // drawing second letter
+  drawText(ctx, secondLetter.text, secondLetter.x, secondLetter.y, secondLetter.color, secondLetter.font);
+  // drawing column
+  drawColumn(ctx, names, times);
 };

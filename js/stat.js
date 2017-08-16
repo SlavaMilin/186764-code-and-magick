@@ -51,7 +51,7 @@ var drawColumn = function (context, name, time) {
     if (name[i] === 'Вы') {
       randomColor = 'rgb(255, 0, 0)';
     } else {
-      randomColor = 'rgba(0, 0, 255, ' + Math.random(0.11, 0.89).toFixed(2) + ')';
+      randomColor = 'rgba(0, 0, 255, ' + Math.random(0.11, 1).toFixed(2) + ')';
     }
     var column = {
       color: randomColor,

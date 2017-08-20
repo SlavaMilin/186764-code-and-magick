@@ -21,8 +21,8 @@ var removeClass = function (element, name) {
 var setColor = function (node, attributePlace, attributeValue) {
   node.querySelector(attributePlace).setAttribute('style', 'fill: ' + attributeValue);
 };
-var setName = function (node, attributePlace, attributeValue) {
-  node.querySelector(attributePlace).insertAdjacentText('afterbegin', attributeValue + ' ');
+var setName = function (node, attributePlace, firstValue, secondValue) {
+  node.querySelector(attributePlace).insertAdjacentText('afterbegin', firstValue + ' ' + secondValue);
 };
 var renderWizardsTo = function (list) {
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
@@ -34,8 +34,7 @@ var renderWizardsTo = function (list) {
     var randomSecontName = selectAttribute(wizzards.secondNames);
     setColor(cloneTemplate, wizzards.coatSelecter, randomCoatColor);
     setColor(cloneTemplate, wizzards.eyesSelecter, randomEyesColor);
-    setName(cloneTemplate, wizzards.nameSelecter, randomSecontName);
-    setName(cloneTemplate, wizzards.nameSelecter, randomFirstName);
+    setName(cloneTemplate, wizzards.nameSelecter, randomFirstName, randomSecontName);
     list.appendChild(cloneTemplate);
   }
 };

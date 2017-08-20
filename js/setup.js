@@ -8,9 +8,9 @@ var wizzards = {
   secondNames: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
   coatColors: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
   eyesColors: ['black', 'red', 'blue', 'yellow', 'green'],
-  nameSelecter: '.setup-similar-label',
-  coatSelecter: '.wizard-coat',
-  eyesSelecter: '.wizard-eyes',
+  nameSelector: '.setup-similar-label',
+  coatSelector: '.wizard-coat',
+  eyesSelector: '.wizard-eyes',
 };
 var selectAttribute = function (attribute) {
   return attribute[Math.round(Math.random() * (attribute.length - 1))];
@@ -32,9 +32,9 @@ var renderWizardsTo = function (list) {
     var randomEyesColor = selectAttribute(wizzards.eyesColors);
     var randomFirstName = selectAttribute(wizzards.firstNames);
     var randomSecontName = selectAttribute(wizzards.secondNames);
-    setColor(cloneTemplate, wizzards.coatSelecter, randomCoatColor);
-    setColor(cloneTemplate, wizzards.eyesSelecter, randomEyesColor);
-    setName(cloneTemplate, wizzards.nameSelecter, randomFirstName, randomSecontName);
+    setColor(cloneTemplate, wizzards.coatSelector, randomCoatColor);
+    setColor(cloneTemplate, wizzards.eyesSelector, randomEyesColor);
+    setName(cloneTemplate, wizzards.nameSelector, randomFirstName, randomSecontName);
     list.appendChild(cloneTemplate);
   }
 };

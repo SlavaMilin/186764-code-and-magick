@@ -82,6 +82,16 @@ var onBtnPushClose = function (evt) {
     closePopUp();
   }
 };
+var onSubmitClick = function () {
+  if (inputText.validity.valid) {
+    closePopUp();
+  }
+};
+var onSubmitPush = function (evt) {
+  if (inputText.validity.valid && evt.keyCode === ENTER_KEYCODE) {
+    closePopUp();
+  }
+};
 var onInputFocusIn = function () {
   document.removeEventListener('keydown', pushEscClose);
 };
@@ -107,8 +117,8 @@ setupCross.addEventListener('click', onBtnClickClose);
 setupCross.addEventListener('keydown', onBtnPushClose);
 inputText.addEventListener('focusin', onInputFocusIn);
 inputText.addEventListener('focusout', onInputFocusOut);
-setupSubmit.addEventListener('click', onBtnClickClose);
-setupSubmit.addEventListener('keydown', onBtnPushClose);
+setupSubmit.addEventListener('click', onSubmitClick);
+setupSubmit.addEventListener('keydown', onSubmitPush);
 
 wizardCoat.addEventListener('click', onCoatClick);
 wizardEyes.addEventListener('click', onEyesClick);
